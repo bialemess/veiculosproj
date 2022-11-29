@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
@@ -122,8 +123,8 @@ namespace veiculosproj
         {
             try
             {
-
-                double x = (double.Parse(txtImposto.Text) * 25) - (double.Parse(txtImposto.Text) * 2.5);
+                double x = double.Parse(txtImposto.Text) * 0.9;
+                // double x = (double.Parse(txtImposto.Text) * 25) - (double.Parse(txtImposto.Text) * 2.5);
                 txtParcela.Text = "" + x;
             }
             catch (Exception x)
@@ -136,7 +137,7 @@ namespace veiculosproj
         {
             try
             {
-                double x = (double.Parse(txtImposto.Text) * 25) / 3;
+                double x = double.Parse(txtImposto.Text) / 3;
                 txtParcela.Text = "" + x;
             }
             catch (Exception x)
@@ -162,7 +163,7 @@ namespace veiculosproj
             }
 
 
-            Veiculos v = new Veiculos(int.Parse(txtPlaca.Text), float.Parse(txtImposto.Text), float.Parse(txtValor.Text), x);
+            Veiculos v = new Veiculos(int.Parse(txtPlaca.Text), (int)float.Parse(rdParcelado.Checked ? txtParcela.Text : txtImposto.Text), float.Parse(txtValor.Text), x);
             v.Pag = x;
 
             if (v.inserirVeiculo())
@@ -260,10 +261,37 @@ namespace veiculosproj
         {
 
         }
-
+        
         private void btnConsultar_Click(object sender, EventArgs e)
         {
+            Veiculos V = new Veiculos();
+            V.Placa = int.Parse(txtPlacaConsultar.Text);
+           MySqlDataReader veiculo = V.ListarVeiculo();
+            if (!veiculo.Read())
+                return;
+            
+            var forma_pagto = int.Parse(veiculo["forma_pagto"].ToString());
+            var valor_imposto = double.Parse(veiculo["valor_imposto"].ToString());
+            veiculo.Dispose();
+            DAO_Conexao.con.Close();
 
+            if (forma_pagto == 1)
+            {
+                txtFormaPagmto.Text = "A vista";
+                txtValorPago.Text = "  Quitado";
+            }
+            else
+            {
+                txtFormaPagmto.Text = "Parcelado";
+                if (V.QntdParcela() == 3)
+                {
+                    txtValorPago.Text = "Quitado";
+                }
+                else
+                {
+                    txtValorPago.Text = "" + V.QntdParcela() * valor_imposto;
+                }
+            }
         }
 
         private void btnVerifica_Click(object sender, EventArgs e)
@@ -275,21 +303,55 @@ namespace veiculosproj
                 return;
             }
 
+            else if ((int.Parse(txtParcelasAPagar.Text) == 0))
+            {
+                MessageBox.Show(" Não é possível pagar parcela nula ");
+                return;
+            }
+
             Veiculos v = new Veiculos();
             v.Placa = int.Parse(txtPlacaConsulta.Text);
             if (v.VerificaExistencia())
             {
                 MessageBox.Show("Veiculo existe");
+                if (v.QntdParcela() + int.Parse(txtParcelasAPagar.Text) > 3)
+                {
 
-               /* v.PagaParcela(int.Parse(txtParcelasAPagar.Text));*/
+                    MessageBox.Show(" Não é possível pagar, parcela superior a 3 ");
+                    return;
+                }
 
-           
+                else
+                {
+                   if(v.PagaParcela(int.Parse(txtParcelasAPagar.Text)))
+                    {
+                        MessageBox.Show("parcela paga");
+                    }
+                    else
+                    {
+                        MessageBox.Show("não foi possível pagar a parcela");
+                    }
 
+                }
             }
             else
             {
-                MessageBox.Show("Não existe");
+                MessageBox.Show("Esse veículo não existe");
             }
+        }
+
+        private void txtPlacaConsulta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtPlaca.Text = "";
+            txtValor.Text = "";
+            txtImposto.Text = "";
+            rdParcelado.Checked = false;
+            rdParcelaUnica.Checked = false;
         }
     }
 }

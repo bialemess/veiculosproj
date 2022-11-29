@@ -70,6 +70,7 @@ namespace veiculosproj
             this.label9 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.relogio = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.Dados.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -92,6 +93,7 @@ namespace veiculosproj
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.btnGravar);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -106,7 +108,7 @@ namespace veiculosproj
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(488, 403);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "IPVA";
@@ -288,10 +290,10 @@ namespace veiculosproj
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.mkdData);
             this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage2.Size = new System.Drawing.Size(488, 395);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(488, 403);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Dados";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -334,10 +336,10 @@ namespace veiculosproj
             this.tabPage3.Controls.Add(this.txtPlacaConsulta);
             this.tabPage3.Controls.Add(this.label11);
             this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage3.Size = new System.Drawing.Size(488, 395);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(488, 403);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Efetuar Pagamento";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -369,6 +371,7 @@ namespace veiculosproj
             this.txtPlacaConsulta.Name = "txtPlacaConsulta";
             this.txtPlacaConsulta.Size = new System.Drawing.Size(100, 26);
             this.txtPlacaConsulta.TabIndex = 1;
+            this.txtPlacaConsulta.TextChanged += new System.EventHandler(this.txtPlacaConsulta_TextChanged);
             this.txtPlacaConsulta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlaca_KeyPress);
             // 
             // label11
@@ -400,10 +403,10 @@ namespace veiculosproj
             this.tabPage4.Controls.Add(this.txtFormaPagmto);
             this.tabPage4.Controls.Add(this.txtPlacaConsultar);
             this.tabPage4.Controls.Add(this.btnConsultar);
-            this.tabPage4.Location = new System.Drawing.Point(4, 30);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage4.Size = new System.Drawing.Size(488, 395);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(488, 403);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Consultar";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -444,6 +447,7 @@ namespace veiculosproj
             this.txtValorPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtValorPago.Location = new System.Drawing.Point(136, 151);
             this.txtValorPago.Name = "txtValorPago";
+            this.txtValorPago.ReadOnly = true;
             this.txtValorPago.Size = new System.Drawing.Size(158, 26);
             this.txtValorPago.TabIndex = 3;
             this.txtValorPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlaca_KeyPress);
@@ -453,6 +457,7 @@ namespace veiculosproj
             this.txtFormaPagmto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFormaPagmto.Location = new System.Drawing.Point(210, 103);
             this.txtFormaPagmto.Name = "txtFormaPagmto";
+            this.txtFormaPagmto.ReadOnly = true;
             this.txtFormaPagmto.Size = new System.Drawing.Size(158, 26);
             this.txtFormaPagmto.TabIndex = 2;
             this.txtFormaPagmto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlaca_KeyPress);
@@ -501,6 +506,17 @@ namespace veiculosproj
             this.relogio.Size = new System.Drawing.Size(100, 20);
             this.relogio.TabIndex = 2;
             this.relogio.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(288, 174);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(86, 30);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Limpar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AtividadeAvaliativa
             // 
@@ -574,6 +590,7 @@ namespace veiculosproj
         private System.Windows.Forms.MaskedTextBox mkdData;
         private System.Windows.Forms.TextBox txtParcelasAPagar;
         private System.Windows.Forms.Button btnVerifica;
+        private System.Windows.Forms.Button button1;
     }
 }
 

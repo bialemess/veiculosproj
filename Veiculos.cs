@@ -71,12 +71,12 @@ namespace veiculosproj
             return sucesso;
 
         }
-        public MySqlDataReader listarVeiculo()
+        public MySqlDataReader ListarVeiculo()
         {
             DAO_Conexao.con.Open();
             MySqlCommand query = new MySqlCommand("select * from VEICULO where placa = "+placa , DAO_Conexao.con);
-            return query.ExecuteReader();
-     
+            var reader = query.ExecuteReader();
+            return reader;
         }
 
         public Boolean VerificaExistencia ()
@@ -165,7 +165,8 @@ namespace veiculosproj
                 DAO_Conexao.con.Open();
                 MySqlCommand select = new MySqlCommand("select qtde_parcela_paga from PAGAMENTO where placa=" + placa, DAO_Conexao.con);
                 MySqlDataReader parcela = select.ExecuteReader();
-                valor = int.Parse(parcela["qtde_parcela_paga"].ToString());
+                if (parcela.Read())
+                    valor = int.Parse(parcela["qtde_parcela_paga"].ToString());
             }
             catch (Exception ex)
             {
